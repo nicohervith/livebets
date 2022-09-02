@@ -5,15 +5,56 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="styles.css">
+  <!--<link rel="stylesheet" href="styles.css"> -->
+  <link rel="stylesheet" href="newStyles.css">
 </head>
 <body>
 
    <div class="main">
    
     <div class="first-block">
-      
-        <div class="sport-title">
+
+      <div class="menu_item" :class="option_menu_seleted == 0 ? 'active_item' : ''">
+        <div class="a_menu text-uppercase">
+          &starf;
+          <a v-on:click="sport_selected = 'ALL';option_menu_seleted = 0;screen_type = 1">
+           <!-- <%= t(:point_sales)[:all] %> <span class="match_amount_banner badge badge-danger badge-counter">{{
+                count_matchs_menu(matchs_sports) }}</span>-->
+          </a>
+        </div>
+      </div>
+
+      <div class="pr-1">
+              <div class="icons-futbol ">⚽</div>
+                <a class="ml-1 text-uppercase">Fútbol
+                  <span class="">61</span>
+                </a>
+      </div>
+
+        <div class="pr-1">
+          <div class="icons-beisbol">⚾</div>
+          <a class="ml-1 text-uppercase">Beisbol
+            <span class="">61</span>
+          </a>
+        </div>
+
+          <div class="pr-1">
+            <div class="icons-basket ">🏀</div>
+            <a class="ml-1 text-uppercase">Basket
+              <span class="">61</span>
+            </a>
+          </div>
+
+            <div class="pr-1">
+              <div class="icons-tennis">🎾</div>
+                <a class="ml-1 text-uppercase">Tenis
+                <span class="">61</span>
+              </a>
+            </div>
+
+
+      <!--
+       <div class="sport-title">
           <div class="title">★</div>
           <p> <a href="#">Juegos</a></p>
         </div>
@@ -38,19 +79,25 @@
           <p><a>Tenis</a></p>
         </div>
 
-
+-->
         <hr/>
 
-          <div class="sport-title">
+        <div class="menu_item">
+          <div class="a_menu">ℹ️</div>
+              <a href="#">Información</a>
+        </div>
+
+         <!-- <div class="sport-title">
             <div class="icons-info"><img src="./img/info.png"/></div>
             <p>Información</p>
           </div>
+          -->
 
-          <div class="info"><li><a href="#">Resultados</a></li></div>
+          <div class="info"><a href="#">Resultados</a></div>
 
-          <div class="info"><li><a href="#">Reglamento</a></li></div>
+          <div class="info"><a href="#">Reglamento</a></div>
 
-          <div class="info"><li><a href="#">Etc</a></li></div>
+          <div class="info"><a href="#">Etc</a></div>
 
         
       </div>
@@ -60,6 +107,7 @@
     </div>
 
     <div class="third-block">
+      <!--
         <div class="mytabs">
           <input type="radio" id="tabfree" name="mytabs" checked="checked">
           <label for="tabfree">Boleto</label>
@@ -91,6 +139,7 @@
           </div>
         
         </div>
+        -->
     </div>
 
   </div>

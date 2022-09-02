@@ -1,6 +1,8 @@
-/*
+*{
+  font-family:sans-serif ;;
+}
 body{
-  background-image: url(https://media.istockphoto.com/vectors/abstract-white-square-shape-with-futuristic-concept-background-space-vector-id1236824686?k=20&m=1236824686&s=612x612&w=0&h=r1Ga0VFxPSUX01_uU2RhGxEzvfzgT8KMPPPrV7yNcdE=);
+  /*background-image: url(https://media.istockphoto.com/vectors/abstract-white-square-shape-with-futuristic-concept-background-space-vector-id1236824686?k=20&m=1236824686&s=612x612&w=0&h=r1Ga0VFxPSUX01_uU2RhGxEzvfzgT8KMPPPrV7yNcdE=);*/
   background-image: url(./img/background3.jpg);
   background-repeat: no-repeat;
   background-position: center center;
@@ -20,24 +22,32 @@ body{
     padding-left: 5px;
     height: auto;
 }
-*/
 
-.sport-title{
-  display: flex;
+/*        Eliminar div id="div_menu"             */
+/*        ELiminar div id="menu_sports"         */
+
+
+.menu_item{
+
+  background-color: rgba(6, 136, 64, 0.5);
+   display: flex;
   align-items: center;
   cursor:pointer;
-  background-color: rgba(6, 136, 64, 0.5);
-  color:#dddd;
-  border-radius: 5px;
-
-}
-
-.sport-title div{
   margin:5px;
+  color: #dddd;
+   border-radius: 3px;
+
 }
 
-.title{
-  display: inline-block;
+.menu_item div{
+  margin:5px;
+   text-transform: uppercase;
+   
+
+}
+
+.a_menu{
+    display: inline-block;
   border:1.5px solid #dddd;
   border-radius: 4px;
   height: 30px;
@@ -46,16 +56,15 @@ body{
   font-size: 20px;
   text-align: center;
   background-color: rgb(204, 204, 204);
-
+  
+  
 }
 
-.title:hover{
-  background-color: rgba(39, 173, 151, 0.5) ;
-  color:rgb(51, 51, 51);
-  border-radius: 5px;
+.a_menu a{
+  font-family: sans-serif;
 }
 
-.sport{
+.pr-1{
   display: flex;
   align-items: center;
   cursor:pointer;
@@ -65,11 +74,44 @@ body{
 
 }
 
-.sport div{
+.pr-1 div{
   margin:5px;
+  
 }
 
-.icons{
+.icons-futbol{
+   display: inline-block;
+  border:1.5px solid #dddd;
+  border-radius: 4px;
+  height: 30px;
+  width: 30px;
+  font-size: 20px;
+  text-align: center;
+   background-color: rgb(32, 158, 43);
+}
+
+a{
+   text-decoration: none;
+    color:#dddd;
+ 
+}
+
+.ml-1{
+  font-size: 20px;
+  text-align: center;
+  font-family: sans-serif;
+  color:#dddd;
+
+}
+
+.pr-1:hover{
+  background-color: rgba(47, 226, 196, 0.3) ;
+  color:rgb(51, 51, 51);
+  border-radius: 5px;
+  
+}
+
+.icons-beisbol{
   display: inline-block;
   border:1.5px solid rgba(173, 173, 173, 0.867);
   border-radius: 4px;
@@ -79,25 +121,6 @@ body{
   text-align: center;
   background-color: rgb(133, 32, 158);
   
-}
-
-p{
-  font-size: 20px;
-  text-align: center;
-  font-family: sans-serif;
-  color:#dddd;
-
-}
-
-.icons-futbol{
-  display: inline-block;
-  border:1.5px solid #dddd;
-  border-radius: 4px;
-  height: 30px;
-  width: 30px;
-  font-size: 20px;
-  text-align: center;
-   background-color: rgb(32, 158, 43);
 }
 
 .icons-basket{
@@ -122,28 +145,26 @@ p{
    background-color: rgb(201, 92, 29);
 }
 
-a{
-  text-decoration: none;
-  color:#dddd;
-}
-
-.sport div:checked + a{
-    color:#dddd;
-}
-
-
-.sport:hover{
-  background-color: rgba(47, 226, 196, 0.3) ;
-  color:rgb(51, 51, 51);
-  border-radius: 5px;
-  
-}
-
 hr{
   width: 90%;
   border-color: rgba(47, 226, 196, 0.3) ;
   border-radius: 2px;
   margin-top: 90px;
+}
+
+/***** Clases nuevas a agregar  ******/
+
+.info_item{
+  
+  background-color: rgba(6, 136, 64, 0.5);
+   display: flex;
+  align-items: center;
+  cursor:pointer;
+  margin:5px;
+  color: #dddd;
+   border-radius: 3px;
+  
+
 }
 
 .info{
@@ -153,7 +174,8 @@ hr{
   margin:5px;
    background-color: rgba(39, 173, 151, 0.2) ;
    border-radius: 3px;
-  
+   height: 40px;
+   
 }
 
 .info:hover{
@@ -164,86 +186,15 @@ hr{
   
 }
 
-.info li{
-  margin:20px;
+.info a{
+  margin:10px;
   color:#dddd;
   font-size: 20px;
   font-family: sans-serif;
 }
 
 
-.icons-info img{
-   display: inline-block;
-  border-radius: 4px;
-  height: 30px;
-  width: 30px;
-  
-}
 
-.second-block{
-  background-color: rgba(109, 109, 109,0.3);
-  width: 98%;
-  margin:auto;
-  height: 100%;
-
-}
-
-.third-block{
-  background-color: transparent;
-  width: 100%;
-  height: 98vh;
-
-}
-
-
-/* Tabs */
-
-.mytabs {
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 100%;
-    padding: 2px;
-}
-.mytabs input[type="radio"] {
-    display: none;
-    
-}
-
-.mytabs label {
-   padding: 7px;
-   background-color: rgba(6, 136, 64, 0.5);
-   font-weight: bold;
-   color:#dddd;
-   cursor:pointer;
-}
-
-.mytabs .tab {
-    width: 100%;
-    padding: 10px;
-    background: rgba(7, 95, 107,0.5);
-    order: 1;
-    display: none;
-    border-radius: 2px;
-}
-
-.mytabs .tab h3 {
-    font-size: 2em;
-    color:#dddd;
-    font-family: sans-serif;
-}
-
-.mytabs input[type='radio']:checked + label + .tab {
-    display: block;
-}
-
-.mytabs input[type="radio"]:checked + label {
-    background: rgba(7, 95, 107,0.5);
-}
-
-.tab p{
-  font-size: 20px;
-  font-family: sans-serif;
-}
 
 @media only screen and ( max-width:768px){
 
@@ -264,15 +215,21 @@ hr{
   }
 
   hr{
-    margin-top: 5px;
+    display: none;
   }
 
-
-  .sport-title {
+  .menu_item {
     width: 100%;
+    text-transform: uppercase;
+    font-family:sans-serif ;
   }
 
-.sport p{
+.menu_item div a{
+  display: none;
+
+}
+
+.pr-1 a{
   display: none;
 }
 
@@ -280,21 +237,26 @@ hr{
   font-size: 8px;
   margin:5px;
   padding:0px 10px  0px 10px;
+  height: auto;
 }
 
-.info li{
-  display: none;
+.info{
+  font-size: 25px;
+  margin:5px;
+  padding:0px 10px  0px 10px;
 }
 
-/*
+
 .second-block{
-  display: none;
+  width: 100%;
+  height: 500px;
 }
 
 .third-block{
-   display: none;
+  margin-top: 20px;
+  height: auto;
 }
 
-*/
+
 
 }
