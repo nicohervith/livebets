@@ -218,7 +218,7 @@ hr{
 
 
 /* Tabs */
-
+/*
 .mytabs {
     display: flex;
     flex-wrap: wrap;
@@ -266,7 +266,7 @@ hr{
   font-family: sans-serif;
   color:#dddd;
 }
-
+*/
 .nav{
     display: flex;
     flex-wrap: wrap;
@@ -292,10 +292,16 @@ list-style: none;
    cursor:pointer;
 }
 
-.nav input[type="radio"]:checked + a {
-    background: rgba(7, 95, 107,0.5);
+.nav .nav-link{
+  border: 1px solid transparent;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
 }
 
+.nav-link.active{
+    font-weight: bold;
+     background: rgba(7, 95, 107,0.5);
+}
 
 
 @media only screen and ( max-width:768px){
