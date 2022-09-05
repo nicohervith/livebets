@@ -1,184 +1,496 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <!--<link rel="stylesheet" href="styles.css"> -->
-  <link rel="stylesheet" href="newStyles.css">
+  <title>PointSale</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="csrf-param" content="authenticity_token" />
+  <meta name="csrf-token"
+    content="ZQcOTKRS_5xUNRG7Dlfp4DJAfpmaueLVozApVVTPNUVNFlbrne5z97JKOw4KsCStlAX4kxZYAiI6q3f6ny8ULA" />
+
+  <link rel="stylesheet" media="all"
+    href="newStyles.css"
+    data-turbolinks-track="reload" />
+  <script src="/packs/js/application-f0b4afbaec49eec69163.js" data-turbolinks-track="reload"></script>
+  <script src="/packs/js/sales-782da656eb19b8bef52d.js"></script>
+  <script src="/packs/js/swalert2-9491380a1562ad2c8a6a.js"></script>
 </head>
+
 <body>
+  <div class='' id="point-sales">
+    <div class='main'>
+      <div class='first_block'>
 
-   <div class="main">
-   
-    <div class="first-block">
-
-      <div class="menu_item" :class="option_menu_seleted == 0 ? 'active_item' : ''">
-        <div class="a_menu text-uppercase">
-          &starf;
-          <a v-on:click="sport_selected = 'ALL';option_menu_seleted = 0;screen_type = 1">
-           <!-- <%= t(:point_sales)[:all] %> <span class="match_amount_banner badge badge-danger badge-counter">{{
-                count_matchs_menu(matchs_sports) }}</span>-->
-          </a>
-        </div>
-      </div>
-
-      <div class="pr-1">
-              <div class="icons-futbol ">⚽</div>
-                <a class="ml-1 text-uppercase">Fútbol
-                  <span class="">61</span>
+            <div class="menu_item" :class="option_menu_seleted == 0 ? 'active_item' : ''">
+              <div class="a_menu">
+                &starf;
+                <a v-on:click="sport_selected = 'ALL';option_menu_seleted = 0;screen_type = 1">
+                  En Juego <!--<span class="match_amount_banner badge badge-danger badge-counter">{{
+                    count_matchs_menu(matchs_sports) }}</span>-->
                 </a>
-      </div>
-
-        <div class="pr-1">
-          <div class="icons-beisbol">⚾</div>
-          <a class="ml-1 text-uppercase">Beisbol
-            <span class="">61</span>
-          </a>
-        </div>
-
-          <div class="pr-1">
-            <div class="icons-basket ">🏀</div>
-            <a class="ml-1 text-uppercase">Basket
-              <span class="">61</span>
-            </a>
-          </div>
-
-            <div class="pr-1">
-              <div class="icons-tennis">🎾</div>
-                <a class="ml-1 text-uppercase">Tenis
-                <span class="">61</span>
-              </a>
+              </div>
             </div>
 
 
-      <!--
-       <div class="sport-title">
-          <div class="title">★</div>
-          <p> <a href="#">Juegos</a></p>
-        </div>
-        
-        <div class="sport">
-              <div class="icons beisbol">⚾</div>
-              <p><a href="#" >Beisbol</a></p>
-        </div>
-
-        <div class="sport">
-          <div class="icons-futbol active">⚽</div>
-          <p><a href="#">Fútbol</a></p>
-        </div>
-
-        <div class="sport">
-          <div class="icons-basket">🏀</div>
-          <p><a href="">Basket</a></p>
-        </div>
-
-        <div class="sport">
-          <div class="icons-tennis">🎾</div>
-          <p><a>Tenis</a></p>
-        </div>
-
--->
-        <hr/>
+            <div class="pr-1 menu_item" v-for="(sport, index) in sports"
+              :class="option_menu_seleted == (index + 1) ? 'active_item' : ''">
+              <div class="a_menu row mr-0 ml-0"
+                v-if="total_games_by_sport(sport.id) > 0 && !evens_blocks.sports.includes(sport.id)">
+                <div v-html="sport.icon"></div>
+                <!--
+                <a class="ml-1 text-uppercase"
+                  v-on:click="sport_selected = sport.name;option_menu_seleted = (index + 1);screen_type = 1"> {{
+                  sport.name }} <span class="match_amount_banner badge badge-danger badge-counter">{{
+                    count_leagues(matchs_sports.find(x => x.id == sport.id).leagues) }}</span> </a>
+                    -->
+              </div>
+            </div>
+          
+      
+        <hr />
 
         <div class="menu_item">
           <div class="a_menu">ℹ️</div>
-              <p class="info-title">Información</p>
+          <p class="info-title">Información</p>
         </div>
-
-         <!-- <div class="sport-title">
-            <div class="icons-info"><img src="./img/info.png"/></div>
-            <p>Información</p>
-          </div>
-          -->
-
-          <!-- Agregar estos div con sus respectivas clases -->
-          <div class="info"><a href="#">Resultados</a></div>
-
-          <div class="info"><a href="#">Reglamento</a></div>
-
-          <div class="info"><a href="#">Etc</a></div>
-
         
+        <div class="info"><a href="#">Resultados</a></div>
+        
+        <div class="info"><a href="#">Reglamento</a></div>
+        
+        <div class="info"><a href="#">Etc</a></div>
+
       </div>
 
-    <div class="second-block">
+      <div class='second_block'>
+        <div class="col-12">
+          <div v-for="(sport, sport_index) in matchs_sports"
+            v-if="sport.leagues.length > 0 && sport_selected == 'ALL' && !evens_blocks.sports.includes(sport.id) || sport_selected == sport.name && !evens_blocks.sports.includes(sport.id)">
+            <div v-show="screen_type == 1" class="row title" v-if="count_leagues(sport.leagues) > 0">
+              <div class="col-3 pl-1 sport_bar text-uppercase">
+                <p>{{sport.name}}</p>
+              </div>
+              <div class="col-3 pl-4 sport_bar text-uppercase">
+                  <p>{{sports.find(x => x.id == sport.id) ? sports.find(x => x.id == sport.id).title[0] : ''}}</p>
+                
+              </div>
+              <div class="col-2 pl-4 sport_bar text-uppercase">
+                  <p>{{sports.find(x => x.id == sport.id) ? sports.find(x => x.id == sport.id).title[1] : ''}}</p>
+                
+              </div>
+              <div class="col-3 pl-4 sport_bar text-uppercase">
+                  <p>{{sports.find(x => x.id == sport.id) ? sports.find(x => x.id == sport.id).title[2] : ''}}</p>
+                
+              </div>
+              <div class="col-1">
+              </div>
+            </div>
+            <div v-for="(league,league_index) in sport.leagues"
+              v-if="evens_blocks.leagues.sports[sport.id] ? !evens_blocks.leagues.sports[sport.id].includes(league.id) : true"
+              v-bind:prop="league" v-bind:mark_key="league_index" class="mb-1 col-12 pl-0 pr-0">
+              <div v-show="screen_type == 1" class="col-12 text-uppercase text-black font-weight-bold league-name"
+                v-if="count_matchs(league.marks) > 0">
+                <div class="col-12 row">
+                  <div style="width: 23%">
+                    <p>{{ league.name.substring(0, 35) + (league.name.length > 35 ? '...' : '') }}</p>
+                  </div>
+                  <div class="row" style="width: 23%">
+                    <div
+                      :class="sports.find(x => x.id == sport.id).name_mark['money_line'].length == 2 ? 'col-6' : 'col-4'"
+                      v-for="name_ml in sports.find(x => x.id == sport.id).name_mark['money_line']">
+                      <p class="text-center">{{name_ml}}</p>
+                    </div>
+                  </div>
+                  <div class="row" style="width: 4%">
+                  </div>
+                  <div class="col-2 row">
+                    <div :class="sports.find(x => x.id == sport.id).name_mark['totals'].length == 2 ? 'col-6' : 'col-4'"
+                      v-for="name_total in sports.find(x => x.id == sport.id).name_mark['totals']">
+                      <p class="text-center">{{translator_text(name_total.toLowerCase())}}</p>
+                    </div>
+                  </div>
+                  <div class="row" style="width: 2%">
+                  </div>
+                  <div class="col-3 row">
+                    <div
+                      :class="sports.find(x => x.id == sport.id).name_mark['run_line'].length == 2 ? 'col-6' : 'col-4'"
+                      v-for="name_ml in sports.find(x => x.id == sport.id).name_mark['run_line']">
+                      <p class="text-center">{{name_ml}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div v-for="(mark,index) in league.marks"
+                v-if="typeof mark.odds.odds == 'object' && mark.odds.info.score && !mark.finished && (evens_blocks.matches.sports[sport.id] ? !evens_blocks.matches.sports[sport.id].includes(mark.match_id) : true)">
+                <div class="row" v-show="screen_type == 1">
+                  <div class="col-3"
+                    v-on:click="last_event_team = ''; all_marks_by_match(mark.id, sport_index,league_index, index, mark.name);">
+                    <div class="mt-0 mb-0">
+                      <div class="col-12 row pr-0">
+                        <div class="col-9 pl-0 pr-0">
+                          <label class="mtp" v-show="screen_type == 1">{{ Number(mark.odds.info.minute) > 0 ?
+                            mark.odds.info.period + ' ' + mark.odds.info.seconds : mark.odds.info.period }} </label>
+                        </div>
+                        <div class="col-3 pl-0 pr-0 text-left text">
+                          {{ sports.find(x => x.id == sport.id).api_name.match(/tennis/i) ? 'S - G - P' : ''}}
+                        </div>
+                      </div>
+                      <div class="row col 12 pr-0">
+                        <p class="col-9 text-left pl-0">
+                          <b><label class="mb-0 mt-0 pl-1 text-title"> {{mark.odds.stats['0']['home']}}</label></b>
+                        </p>
+                        <p class="col-3 text-danger text-left pl-0 pr-0">
+                          <b>{{ sports.find(x => x.id == sport.id).api_name.match(/tennis/i) ? tennis_data(mark, 1) :
+                            mark.odds.info.score.split(':')[0]}}</label></b>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="mt-0 mb-0">
+                      <div class="row col 12 pr-0">
+                        <p class="col-9 text-left pl-0">
+                          <b><label class="mb-0 mt-0 pl-1 text-title"> {{mark.odds.stats['0']['away']}}</label></b>
+                        </p>
+                        <p class="col-3 text-danger text-left pl-0 pr-0">
+                          <b>{{ sports.find(x => x.id == sport.id).api_name.match(/tennis/i) ? tennis_data(mark, 2) :
+                            mark.odds.info.score.split(':')[1]}}</label></b>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3 pl-0 pr-0 ml-0 mr-0">
+                    <div class="col-12 pl-0 pr-0 ml-0 mr-0 pt-1">
+                      <div class="row col-12" v-for="money_line_odds in mark.odds.odds">
+                        <div
+                          v-bind:class="[sports.find(x => x.id == sport.id).marks[sports.find(x => x.id == sport.id).main_marks.money_line][0] == 2 ? 'col-6 pr-1 pl-0' : 'col-4 pr-1 pl-0']"
+                          v-for="money_line in money_line_odds.participants"
+                          v-if="money_line_odds.id == sport.main_marks.money_line">
+                          <div
+                            style="align-items: center;justify-content: center;display: flex;border-top: solid green 0px;border-bottom: solid red 0px;"
+                            v-on:click="sales_movements(sport.id, money_line.suspend, mark.id, money_line_odds.id, money_line.id, 'p1_' + (mark.id + '_' + money_line_odds.id + '_' + money_line.name + '_' + (money_line.handicap ? money_line.handicap : money_line.id)), (mark.id + '_' + money_line_odds.id + '_' + money_line.name + '_' + (money_line.handicap ? money_line.handicap : money_line.id)), mark_name_pretty(sports, sport, money_line_odds.id, money_line_odds.name), money_line.name, money_line.handicap, money_line, mark.name, 1, mark.odds.team_info)"
+                            :id="'p1_' + (mark.id + '_' + money_line_odds.id + '_' + money_line.name + '_' + (money_line.handicap ? money_line.handicap : money_line.id))"
+                            :class="money_line.handicap ? 'item_odds_screen1 col-12' : 'item_odds_screen1 height_one col-12'">
+                            <p class="text-center"
+                              v-if="money_line.handicap && money_line.suspend == 0 || money_line.suspend == null">
+                              <hcap-component :hcap="money_line.handicap" :status="money_line.suspend"
+                                :id="'money_line_handicap' + (mark.id + '_' + money_line_odds.id + '_' + money_line.name + '_' + (money_line.handicap ? money_line.handicap : money_line.id))">
+                              </hcap-component>
+                            </p>
+                            <p class="text-center">
+                              <odds-component :odd="money_line.value_eu" :status="money_line.suspend"
+                                :id="'money_line_value_eu' + (mark.id + '_' + money_line_odds.id + '_' + money_line.name + '_' + (money_line.handicap ? money_line.handicap : money_line.id))">
+                              </odds-component>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
-    </div>
+                  <div class="col-2 pl-0 pr-0 ml-0 mr-0">
+                    <div class="col-12 pl-0 pr-0 ml-0 mr-0 pt-1">
+                      <div class="row col-12 pl-0 pr-0 ml-0 mr-0" v-for="(totals_odds, totals_ids) in mark.odds.odds">
+                        <div class="col-6 pl-0 pr-0 ml-0 mr-0"
+                          v-for="(totals, participants_id, totals_index) in totals_odds.participants"
+                          v-if="totals_odds.id == sport.main_marks.totals && totals_index < sports.find(x => x.id == sport.id).marks[totals_odds.id][0]">
+                          <div
+                            style="align-items: center;justify-content: center;display: flex;border-top: solid green 0px;border-bottom: solid red 0px;"
+                            v-on:click="sales_movements(sport.id, totals.suspend, mark.id, totals_odds.id, totals.id, 'p1_' + (mark.id + '_' + totals_odds.id + '_' + totals.name + '_'  + (totals.handicap ? totals.handicap : totals.id)), (mark.id + '_' + totals_odds.id + '_' + totals.name + '_'  + (totals.handicap ? totals.handicap : totals.id)), mark_name_pretty(sports, sport, totals_odds.id, totals_odds.name), totals.name, totals.handicap, totals, mark.name, 2, mark.odds.team_info)"
+                            :id="'p1_' + (mark.id + '_' + totals_odds.id + '_' + totals.name + '_'  + (totals.handicap ? totals.handicap : totals.id))"
+                            :class="totals.handicap ? 'item_odds_screen1 pt-0 pb-0' : 'item_odds_screen1 height_one pt-0 pb-0'">
+                            <section class="ml-0 pt-0 pb-0">
+                              <p class="text-center pt-0"
+                                v-if="totals.handicap && totals.suspend == 0 || totals.suspend == null">
+                                <hcap-component :hcap="totals.handicap" :status="totals.suspend"
+                                  :id="'totals_handicap' + (mark.id + '_' + totals_odds.id + '_' + totals.name + '_'  + (totals.handicap ? totals.handicap : totals.id))"
+                                  :name="'Over'"></hcap-component>
+                              </p>
+                              <p class="text-center ml-1 pt-0">
+                                <odds-component :odd="totals.value_eu" :status="totals.suspend"
+                                  :id="'totals_value_eu' + (mark.id + '_' + totals_odds.id + '_' + totals.name + '_'  + (totals.handicap ? totals.handicap : totals.id))">
+                                </odds-component>
+                              </p>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
-    <div class="third-block">
+                  <div class="col-3 pl-0 pr-0 ml-0 mr-0">
+                    <div class="col-12 pl-0 pr-0 ml-0 mr-0 pt-1">
+                      <div class="row col-12 pl-0 pr-0 ml-0 mr-0" v-for="(run_line_odds,index) in mark.odds.odds">
+                        <div
+                          v-bind:class="[sports.find(x => x.id == sport.id).marks[run_line_odds.id][0] == 2 ? 'col-6 pr-0 mr-0' : 'col-4 pr-0 mr-0']"
+                          v-for="(run_line,index2, run_index) in run_line_odds.participants"
+                          v-if="run_line_odds.id == sport.main_marks.run_line && run_index < sports.find(x => x.id == sport.id).marks[run_line_odds.id][0]">
+                          <div
+                            style="align-items: center;justify-content: center;display: flex;border-top: solid green 0px;border-bottom: solid red 0px;"
+                            v-on:click="sales_movements(sport.id, run_line.suspend, mark.id, run_line_odds.id, run_line.id, 'p1_' + (mark.id + '_' + run_line_odds.id + '_' + run_line.name + '_' + (run_line.handicap ? run_line.handicap : run_line.id)), (mark.id + '_' + run_line_odds.id + '_' + run_line.name + '_' + (run_line.handicap ? run_line.handicap : run_line.id)), mark_name_pretty(sports, sport, run_line_odds.id, run_line_odds.name), run_line.name, run_line.handicap, run_line, mark.name, 2, mark.odds.team_info)"
+                            :id="'p1_' + (mark.id + '_' + run_line_odds.id + '_' + run_line.name + '_' + (run_line.handicap ? run_line.handicap : run_line.id))"
+                            class="item_odds_screen1 mt-0 mb-0 pt-0 pb-0">
+                            <section class="ml-0 pt-0 pb-0" style="vertical-align: middle;">
+                              <p class="text-center pt-0"
+                                v-if="run_line.handicap && run_line.suspend == 0 || run_line.suspend == null">
+                                <hcap-component :hcap="run_line.handicap" :status="run_line.suspend"
+                                  :id="'run_line_handicap' + (mark.id + '_' + run_line_odds.id + '_' + run_line.name + '_' + (run_line.handicap ? run_line.handicap : run_line.id))"
+                                  :name="run_line.name"></hcap-component>
+                              </p>
+                              <p class="text-center ml-1 pt-0">
+                                <odds-component :odd="run_line.value_eu" :status="run_line.suspend"
+                                  :id="'run_line_value_eu' + (mark.id + '_' + run_line_odds.id + '_' + run_line.name + '_' + (run_line.handicap ? run_line.handicap : run_line.id))">
+                                </odds-component>
+                              </p>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
-      <div id="body_ticket_complet" class="text-center">
+                  <div class="col-1 marks-total">
+                    <a
+                      v-on:click="last_event_team = ''; all_marks_by_match(mark.id, sport_index,league_index, index, mark.name);">
+                      {{ typeof mark.odds.odds == 'object' ? Object.keys(mark.odds.odds).length : '0'}} ></a>
+                  </div>
+                </div>
+                <div :id="'screen2_' + mark.id" v-show="screen_type == 2 && match_id_selected == mark.id">
+                  <screen2-component :sport="sport" :mark="mark" :sports="sports" :sport_index="sport.id"
+                    :sales_movements="sales_movements" :match_selected="match_selected"
+                    :last_event_team="last_event_team" :screen_type="screen_type" :league="league" :language="language"
+                    :name_traslator="name_traslator" :translator_text="translator_text">
+                    </scree2-component>
+                </div>
+                <hr class="mt-1 pt-0 mb-2" v-if="league.marks.length > 1 && screen_type == 1">
+              </div>
+            </div>
+          </div>
+        </div>
 
+
+
+      </div>
+      <div class="third_block">
+       
+        <!--<div id="body_ticket_complet" class="text-center" v-if="!connected">
+          <img src="/assets/wifi-off.svg" style="width: 50%;height: 50%;">
+          <h2>Sin Conexión</h2>
+        </div>-->
+        <div id="body_ticket_complet" v-if="connected" style="overflow-y: auto;height: 97vh">
           <ul class="nav nav-tabs">
-              <!--<input type="radio" id="tabfree" name="mytabs" checked="checked">-->
-              <li class="nav-item" >
-                <a href="#">Boleto</a>
-               </li>
-
-              <!--<input type="radio" id="tabsilver" name="mytabs">-->
-              <li class="nav-item" >
-                <a href="#">Mis apuestas</a>
-              </li>
-
-              <!--<input type="radio" id="tabgold" name="mytabs">-->
-              <li class="nav-item" >
-                <a  class="nav-link" href="#">Resultados</a>
-              </li>
-
+            <li class="nav-item" style="font-size: 1.3em !important;">
+              <a class="nav-link" v-on:click="type_of_tickets = 1;clear_reports()"
+                :class="type_of_tickets == 1 ? 'active' : ''" aria-current="page" href="#">
+                </a>
+            </li>
+            <li class="nav-item" style="font-size: 1.3em !important;">
+              <a class="nav-link" v-on:click="type_of_tickets = 2" :class="type_of_tickets == 2 ? 'active' : ''"
+                href="#">
+                
+              </a>
+            </li>
+            <li class="nav-item" style="font-size: 1.3em !important;">
+              <a class="nav-link" v-on:click="type_of_tickets = 3" :class="type_of_tickets == 3 ? 'active' : ''"
+                href="#">
+                Resultados
+              </a>
+            </li>
           </ul>
 
-          <div class="mt-2" >
-              <!---->
+
+          <div class="mt-2 mb-2">
+            <a v-if="salesItems.length > 0 && type_of_tickets == 1" v-on:click="salesItems = []; resetWindow()"
+              class="mt-1 border border-danger p-2">&#128465; Eliminar todo</a>
+            <a v-if="salesItems.length == 0 && salesItemsDenied.length > 0" v-on:click="salesItemsDenied = [] "
+              class="mt-1 border border-info p-2">&#128196; Nuevo Ticket</a>
           </div>
-          <div id="itemSales">
-              <!---->
+
+
+          <div id="itemsSales" v-if="type_of_tickets == 1">
+            <div v-if="max_combinations > user_config.max_combinations && type_of_bet == 2"
+              style="align-items: center; display: flex; flex: 1 1 auto; padding: 8px; border-color: rgb(251, 224, 68); border-radius: 4px; border-style: solid; border-width: 1px; background-color: rgb(253, 243, 183); height: auto;">
+              Maximo de jugadas combinadas permitidas. ({{user_config.max_combinations}})
+            </div>
+
+            <ul class="nav nav-tabs sub_type_ticket" v-if="salesItems.length > 1">
+              <li class="nav-item">
+                <a class="nav-link" v-on:click="type_of_bet = 1" :class="type_of_bet == 1 ? 'active' : ''"
+                  aria-current="page" href="#">Sencilla</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" v-on:click="type_of_bet = 2; check_amount_type = false"
+                  :class="type_of_bet == 2 ? 'active' : ''" href="#" tabindex="-1" aria-disabled="false">
+                  Combinada
+                </a>
+              </li>
+            </ul>
+
+            <div class="ml-2" v-for="(items, index) in salesItems">
+              <div class="row-left10">
+                <p v-on:click="removeItem(index)" class="pointer col-1 pt-3 pr-0" title="Pulse para eliminar jugada">
+                  <b>&#9940;</b></p>
+                <div class="col-11 pl-1">
+                  <p class="mt-0 mb-0">{{items.match}} </p>
+                  <div class="row ml-0 mt-0 mb-0">
+                    <p>{{items.name_translate = name_traslator(items.name, items.team_info)}} {{items.handicap ? '(' +
+                      items.handicap + ')' : ''}}</p>
+                    <p class="ml-4" :id="'tline_old_' + items.id_item.split(/p1_|p2_/i)[1]"
+                      v-if="items.odd.suspend == '0' || items.change_conditions == false "></p>
+                    <p class="ml-0" :id="'tline_new_' + items.id_item.split(/p1_|p2_/i)[1]"><b>{{items.odd.suspend ==
+                        '1' ? 'Suspendido' : (items.change_conditions ? 'Cambiaron Preferencias' :
+                        Number(items.odd.value_eu).toFixed(2)) }}&nbsp;</b></p>
+                  </div>
+                  <div class="row ml-0 col-12 pl-0 ml-0">
+                    <div class="col-8 text-left pl-0 ml-0">
+                      <p class="mt-0 mb-0">{{items.mark_name}}</p>
+                    </div>
+                    <div class="col-4">
+                      <p
+                        v-if="check_amount_type == true && (items.odd.suspend == '0' || items.odd.suspend == null) && items.change_conditions == false ">
+                        <input type="number" class="form-control form-control-sm" v-model="items.amount"
+                          :run="!items.amount ? items.amount = 0 : true">
+                      </p>
+                    </div>
+                  </div>
+                  <p class="mt-0 mb-0 text-danger" v-if="items.rest.length > 0">{{items.rest}}</p>
+                </div>
+              </div>
+              <hr class="mt-0 mb-0">
+            </div>
+
+            <p class="pt-1 pr-0 ml-3" v-if="salesItemsDenied.length > 0"><b>Jugadas sin cupo</b></p>
+            <div class="ml-4" v-for="(items, index) in salesItemsDenied">
+              <div class="row-left10">
+                <div class="col-11 pl-1">
+                  <div class="row ml-0 mt-0 mb-0">
+                    <p>{{items.name}} {{items.handicap ? '(' + items.handicap + ')' : ''}}</p>
+                    <p class="ml-4" :id="'tline_old_' + items.id_item.split('_')[1]"></p>
+                    <p class="ml-0" :id="'tline_new_' + items.id_item.split('_')[1]"><b>{{(items.odd.suspend == '0' ||
+                        items.odd.suspend == null) ? items.odd.value_eu : 'Suspendido'}}&nbsp;</b></p>
+                  </div>
+                  <div class="row ml-0 col-12 pl-0 ml-0">
+                    <div class="col-8 text-left pl-0 ml-0">
+                      <p class="mt-0 mb-0">{{items.mark_name}}</p>
+                      <p class="mt-0 mb-0">{{items.match}} </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr class="mt-0 mb-0">
+            </div>
+
+            <div class="row ml-0" v-if="check_amount_type == false && salesItems.length > 0">
+              <p class="col-5 text-right pt-3"><label>{{total_active_items()}} x</label></p>
+              <div class="col-6 mt-2">
+                <p> <input type="number" id="total" class="form-control form-control-sm" v-model="unit_amount_ticket">
+                </p>
+              </div>
+            </div>
+
+            <div v-if="salesItems.length > 1 && type_of_bet == 1" class="col-12 text-right pt-2 row ml-0">
+              <p class="text-right pr-0 col-11"><label>Separar Sencillas </label></p>
+              <p class="col-1 pr-0"><input :id="check_amount_type" v-model="check_amount_type" checked type="checkbox"
+                  data-toggle="toggle" data-on="SI" data-off="No" class="separate"></p>
+              <hr class="mt-0 mb-0">
+            </div>
+
+            <div v-if="same_match && type_of_bet == 2"
+              style="align-items: center; display: flex; flex: 1 1 auto; padding: 8px; border-color: rgb(251, 224, 68); border-radius: 4px; border-style: solid; border-width: 1px; background-color: rgb(253, 243, 183); height: auto;">
+              Algunas apuestas no estan disponibles porque estan relacionadas.
+            </div>
+
+            <div class="row ml-0" v-if="salesItems.length > 0">
+              <p class="col-5 text-right pt-3"><label>Total Arriesgado</label></p>
+              <p class="col-6 pt-2"> <input type="number" disabled id="total" class="form-control form-control-sm"
+                  v-model="totalItem"> </p>
+            </div>
+
+            <div class="ml-0" v-if="salesItems.length > 0 && totalItem > 0 && !validate_button_sales()">
+              <div class="row ml-0">
+                <p class="col-5 text-right pt-2"><label>Total a Pagar</label></p>
+                <p class="col-6 text-right"> <input type="number" disabled id="win" class="form-control form-control-sm"
+                    v-model="totalWin"> </p>
+              </div>
+              <p>
+                <input type="button" :disabled='isDisabled' value="Procesar &#10004;" v-on:click="process_sales"
+                  class="btn btn-sm btn-success">
+              </p>
+            </div>
 
           </div>
-          
-      </div>
-      
-      <!--
-        <div class="mytabs">
-          <input type="radio" id="tabfree" name="mytabs" checked="checked">
-          <label for="tabfree">Boleto</label>
-          <div class="tab">
-            
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. </p>
+          <div v-if="not_available.length > 0" class="ml-1 mt-4">
+            <h5>Jugadas no disponobles</h5>
+            <div class="mt-2 mb-2">
+              <a v-on:click="not_available = []" class="mt-1 border border-danger p-2">&#128465; Limpiar</a>
+            </div>
+
+            <div class="ml-2" v-for="(items, index) in not_available">
+              <div class="row-left10">
+                <div class="col-11 pl-1">
+                  <p class="mt-0 mb-0">{{items.match}} </p>
+                  <div class="row ml-0 mt-0 mb-0">
+                    <p>{{items.name}} {{items.handicap ? '(' + items.handicap + ')' : ''}}</p>
+                    <p class="ml-0"><b>&nbsp;&nbsp;{{ Number(items.odd.value_eu).toFixed(2) }}&nbsp;</b></p>
+                  </div>
+                  <div class="row ml-0 col-12 pl-0 ml-0">
+                    <div class="col-8 text-left pl-0 ml-0">
+                      <p class="mt-0 mb-0">{{items.mark_name}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr class="mt-0 mb-0">
+            </div>
           </div>
-        
-          <input type="radio" id="tabsilver" name="mytabs">
-          <label for="tabsilver">Mis apuestas</label>
-          <div class="tab">
-            
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            </p>
+
+          <div id="reportTickets" v-if="type_of_tickets == 2">
+            <div class="col-12 row mb-2">
+              <div class="col-6">
+                {{translator_text('from')}}: <input type="date" id="date_from" value="2022-09-05">
+              </div>
+              <div class="col-6">
+                {{translator_text('to')}}: <input type="date" id="date_to" value="2022-09-05">
+              </div>
+            </div>
+            <input type="button" :value="translator_text('open')" v-on:click="queryReport(0)"
+              class="btn btn-sm btn-info">
+            <input type="button" :value="translator_text('win')" v-on:click="queryReport(1)"
+              class="btn btn-sm btn-success">
+            <input type="button" :value="translator_text('lose')" v-on:click="queryReport(2)"
+              class="btn btn-sm btn-danger">
+
+            <div id="reports_body">
+            </div>
           </div>
-        
-          <input type="radio" id="tabgold" name="mytabs">
-          <label for="tabgold">Resultados</label>
-          <div class="tab">
-            
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            </p>
+
+          <div id="reportTickets" v-if="type_of_tickets == 3">
+            <div class="col-12 row mb-2">
+              <div class="col-12">
+                {{translator_text('date')}}: <input type="date" id="date_from" value="2022-09-05" class="form-control">
+              </div>
+              <div class="col-12 mt-1 mb-1">
+                <select id="sports_results" class="form-control">
+                  <option value="0">{{translator_text('select_sport')}}</option>
+                  <option value="3">Baseball</option>
+                  <option value="4">Basketball</option>
+                  <option value="6">Hockey</option>
+                  <option value="1">Soccer</option>
+                  <option value="5">Tennis</option>
+                </select>
+              </div>
+            </div>
+            <input type="button" :value="translator_text('query')" v-on:click="queryResults()"
+              class="btn btn-sm btn-info mt-1">
+
+            <div id="results_body">
+            </div>
           </div>
-        
+
         </div>
-        
-      
-     
-        
+      </div>
     </div>
-    -->
-
   </div>
-  
+
+
 </body>
+
 </html>

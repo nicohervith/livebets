@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!--<link rel="stylesheet" href="styles.css"> -->
+  <link rel="stylesheet" href="newStyles.css">
+</head>
+<body>
+
+   <div class="main">
+   
+    <div class="first-block">
+
+      <div class="menu_item" :class="option_menu_seleted == 0 ? 'active_item' : ''">
+        <div class="a_menu text-uppercase">
+          &starf;
+          <a v-on:click="sport_selected = 'ALL';option_menu_seleted = 0;screen_type = 1">
+           <!-- <%= t(:point_sales)[:all] %> <span class="match_amount_banner badge badge-danger badge-counter">{{
+                count_matchs_menu(matchs_sports) }}</span>-->
+          </a>
+        </div>
+      </div>
+
+      <div class="pr-1">
+              <div class="icons-futbol ">⚽</div>
+                <a class="ml-1 text-uppercase">Fútbol
+                  <span class="">61</span>
+                </a>
+      </div>
+
+        <div class="pr-1">
+          <div class="icons-beisbol">⚾</div>
+          <a class="ml-1 text-uppercase">Beisbol
+            <span class="">61</span>
+          </a>
+        </div>
+
+          <div class="pr-1">
+            <div class="icons-basket ">🏀</div>
+            <a class="ml-1 text-uppercase">Basket
+              <span class="">61</span>
+            </a>
+          </div>
+
+            <div class="pr-1">
+              <div class="icons-tennis">🎾</div>
+                <a class="ml-1 text-uppercase">Tenis
+                <span class="">61</span>
+              </a>
+            </div>
+
+
+      <!--
+       <div class="sport-title">
+          <div class="title">★</div>
+          <p> <a href="#">Juegos</a></p>
+        </div>
+        
+        <div class="sport">
+              <div class="icons beisbol">⚾</div>
+              <p><a href="#" >Beisbol</a></p>
+        </div>
+
+        <div class="sport">
+          <div class="icons-futbol active">⚽</div>
+          <p><a href="#">Fútbol</a></p>
+        </div>
+
+        <div class="sport">
+          <div class="icons-basket">🏀</div>
+          <p><a href="">Basket</a></p>
+        </div>
+
+        <div class="sport">
+          <div class="icons-tennis">🎾</div>
+          <p><a>Tenis</a></p>
+        </div>
+
+-->
+        <hr/>
+
+        <div class="menu_item">
+          <div class="a_menu">ℹ️</div>
+              <p class="info-title">Información</p>
+        </div>
+
+          <div class="info"><a href="#">Resultados</a></div>
+
+          <div class="info"><a href="#">Reglamento</a></div>
+
+          <div class="info"><a href="#">Etc</a></div>
+
+        
+      </div>
+
+    <div class="second-block">
+
+    </div>
+
+    <div class="third-block">
+
+      <div id="body_ticket_complet" class="text-center">
+
+          <ul class="nav nav-tabs">
+              <!--<input type="radio" id="tabfree" name="mytabs" checked="checked">-->
+              <li class="nav-item" >
+                <a href="#">Boleto</a>
+               </li>
+
+              <!--<input type="radio" id="tabsilver" name="mytabs">-->
+              <li class="nav-item" >
+                <a href="#">Mis apuestas</a>
+              </li>
+
+              <!--<input type="radio" id="tabgold" name="mytabs">-->
+              <li class="nav-item" >
+                <a  class="nav-link" href="#">Resultados</a>
+              </li>
+
+          </ul>
+
+          <div class="mt-2" >
+              <!---->
+          </div>
+          <div id="itemSales">
+              <!---->
+
+          </div>
+          
+      </div>
+      
+      <!--
+        <div class="mytabs">
+          <input type="radio" id="tabfree" name="mytabs" checked="checked">
+          <label for="tabfree">Boleto</label>
+          <div class="tab">
+            
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. </p>
+          </div>
+        
+          <input type="radio" id="tabsilver" name="mytabs">
+          <label for="tabsilver">Mis apuestas</label>
+          <div class="tab">
+            
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            </p>
+          </div>
+        
+          <input type="radio" id="tabgold" name="mytabs">
+          <label for="tabgold">Resultados</label>
+          <div class="tab">
+            
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            </p>
+          </div>
+        
+        </div>
+        
+      
+     
+        
+    </div>
+    -->
+
+  </div>
+  
+</body>
+</html>
