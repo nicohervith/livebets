@@ -18,21 +18,19 @@ uno de los elementos div en los estilos contiene el color blanco para todos los 
 
 .main{
   display: grid;
-  grid-template-columns: 20% 60% 20%;
-
-  
+  grid-template-columns: 18% 58% 22%;
+  justify-content: center;
 }
 
 .first_block{
-    margin-top: 5px;
-    padding-right: 5px;
-    padding-left: 5px;
+    margin-left: -10px;
     height: auto;
+    margin-right: 10px;
 }
 
 .second_block{
   width:100%;
-  height: auto;
+  height: 500px;
   padding:2px;
   background-color: rgba(39, 173, 151, 0.2) ;
 }
@@ -57,6 +55,12 @@ uno de los elementos div en los estilos contiene el color blanco para todos los 
    text-transform: uppercase;
    
 
+}
+
+.title{
+  height: 30px;
+   border-radius: 3px;
+  width: 30px;
 }
 
 .a_menu{
@@ -147,6 +151,8 @@ a{
    background-color: rgb(201, 141, 29);
 }
 
+
+
 .icons-tennis{
     display: inline-block;
   border:1.5px solid #dddd;
@@ -156,6 +162,37 @@ a{
   font-size: 20px;
   text-align: center;
    background-color: rgb(201, 92, 29);
+}
+
+.icons-american-football{
+  display: inline-block;
+  border:1.5px solid #dddd;
+  border-radius: 4px;
+  height: 30px;
+  width: 30px;
+  font-size: 20px;
+  text-align: center;
+   background-color: rgb(92, 201, 29);
+}
+.icons-voley{
+  display: inline-block;
+  border:1.5px solid #dddd;
+  border-radius: 4px;
+  height: 30px;
+  width: 30px;
+  font-size: 20px;
+  text-align: center;
+   background-color: rgb(201, 198, 29);
+}
+.icons-hockey{
+  display: inline-block;
+  border:1.5px solid #dddd;
+  border-radius: 4px;
+  height: 30px;
+  width: 30px;
+  font-size: 20px;
+  text-align: center;
+   background-color: rgb(240, 240, 240);
 }
 
 hr{
@@ -222,7 +259,7 @@ hr{
   width: 100%;
   padding:2px;
   height: 98vh;
-  margin-right: 10px;
+  margin-left: 10px;
 
 }
 
@@ -293,7 +330,6 @@ hr{
 list-style: none;
 }
 
-
 .nav .nav-item {
    padding: 4px;
    background-color: rgba(6, 136, 64, 0.5);
@@ -303,14 +339,67 @@ list-style: none;
 }
 
 .nav .nav-link{
-  border: 1px solid transparent;
+    border: 1px solid transparent;
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
+}
+
+.nav-link:hover{
+ color: rgba(240, 240, 240, 0.5);
 }
 
 .nav-link.active{
     font-weight: bold;
      background: rgba(7, 95, 107,0.5);
+}
+
+/* Tabs */
+
+.mytabs {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+    padding: 2px;
+}
+.mytabs input[type="radio"] {
+    display: none;
+    
+}
+
+.mytabs label {
+   padding: 7px;
+   background-color: rgba(6, 136, 64, 0.5);
+   font-weight: bold;
+   color:#dddd;
+   cursor:pointer;
+}
+
+.mytabs .tab {
+    width: 100%;
+    padding: 10px;
+    background: rgba(7, 95, 107,0.5);
+    order: 1;
+    display: none;
+    border-radius: 2px;
+}
+
+.mytabs .tab h3 {
+    font-size: 2em;
+    color:#dddd;
+    font-family: sans-serif;
+}
+
+.mytabs input[type='radio']:checked + label + .tab {
+    display: block;
+}
+
+.mytabs input[type="radio"]:checked + label {
+    background: rgba(7, 95, 107,0.5);
+}
+
+.tab p{
+  font-size: 20px;
+  font-family: sans-serif;
 }
 
 
